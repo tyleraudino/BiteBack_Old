@@ -37,10 +37,27 @@
   color: black;
 }
 
+#container {
+  width: 100%;
+}
+
+#first {
+  width: 50%;
+  float: left;
+  height: 300px;
+}
+
+#second {
+  width: 50%;
+  float: left;
+  height: 300px;
+}
+
 .uiDesign p {
   color: black;
   font-size: 14px;
 }
+
 .uiDesign label {
   color: black;
 }

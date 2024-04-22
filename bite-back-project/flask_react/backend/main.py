@@ -94,9 +94,38 @@ class Main:
         labels = list(data.keys())
         values = list(data.values())
         fig = px.pie(values=values, names=labels, title='Input Meal Macronutrient Distribution', color_discrete_sequence=px.colors.diverging.Fall)
-        pio.write_image(fig, "../public/macro_pie_chart.jpg")
-        #fig.write_image("bite-back-project/flask_react/public/macro_pie_chart.jpg", engine="plotly")
+        fig.update_layout(title_x=0.5)
+        fig.update_layout(width=800, height=600)
+        fig.update_layout(title_font=dict(size=24), legend_font=dict(size=16))
+        fig.write_image("../public/macro_pie_chart.png")
         return
+    
+    def createBarChart(self, nutrients, goalNutrients):
+        # this function will take in the nutrients of the input meal and the goal nutrients (assuming 1/3 of DV should be met by meal) and will show gap of nutreients in terms of percent
+        categories = []
+        percentage = []
+        for nutrient in nutrients:
+            if goalNutrients[nutrient] == 0:
+                # skip nutrients with no DV
+               continue
+            else:
+                percentage.append((nutrients[nutrient]/goalNutrients[nutrient]) * 100)
+                categories.append(nutrient)
+
+        # Create overlapped bar chart
+        fig = px.bar(x=categories, y=percentage, barmode='overlay', labels={'x':'Nutrient', 'y':'Percent Met'},
+                    title='Percentage of 1/3 Daily Value Met from Input Meal - Excludes Nutrients with no DV', color_discrete_sequence=['green'])
+
+        goal_value = 100
+        fig.add_hline(y=goal_value, line_dash='dash', line_color='red', annotation_text=f'Goal: {goal_value}',
+                      annotation_position='bottom right')
+
+        fig.update_layout(showlegend=False)
+        fig.update_layout(title_x=0.5)
+        fig.update_layout(width=800, height=600)
+
+        # Save the chart as an image
+        fig.write_image('../public/overlapped_bar_chart.jpg')  # Change file format as needed (e.g., 'overlapped_bar_chart.jpg')
     
     def mainImportVersion(self):
         # get input from website as args
