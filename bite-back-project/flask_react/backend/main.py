@@ -42,7 +42,7 @@ class Main:
 
     def unpickleHash(self):
         with open(os.path.abspath("data/data_hash.pickle"), "rb") as hashFile:
-            self.graph = pickle.load(hashFile)
+            self.hash = pickle.load(hashFile)
         hashFile.close()
 
     def runHash(self, meal):
@@ -50,10 +50,10 @@ class Main:
         startTime = time.time()
         
         # find current meal nutrients - this is used for visualizations
-        mealNutrition = self.hash.meal_nutrition(meal)
+        mealNutrition = self.hash.mealNutrition(meal)
 
         # find nutrients needed to improve meal
-        neededNutrients, goalNutrients = self.hash.needed_nutrients(meal)
+        neededNutrients, goalNutrients = self.hash.neededNutrients(meal)
 
         # run suggestion algorithm 
         foodSuggestions = self.hash.getSuggestions(neededNutrients, goalNutrients)
@@ -101,27 +101,29 @@ class Main:
     def mainImportVersion(self):
         # get input from website as args
         # TODO
-        self.unpickleGraph() # load data
+
+        # load data
+        self.unpickleGraph() 
+        self.unpickleHash()
         input = {"Cuban sandwich, with spread" : 1, "Milk, whole" : 2}   # example input for now format food : num servings
 
         # each functions compares the time it took and the foods suggested by each data structure
-        #hashTime, hashSuggestions = self.runHash(input)
+        hashTime, hashSuggestions = self.runHash(input)
         graphTime, graphSuggestions = self.runGraph(input)
-        #print("Hash RunTime: " + str(hashTime))
-        #print("Hash Suggestions: ", end = "")
-        #print(hashSuggestions)
+        print("Hash RunTime: " + str(hashTime))
+        print("Hash Suggestions: ", end = "")
+        print(hashSuggestions)
         print("Graph RunTime: " + str(graphTime))
         print("Graph Suggestions: ", end = "")
         print(graphSuggestions)
 
         #return hash runtime, graph runtime, graph suggestions, hash suggestions
-        return graphTime, graphSuggestions
+        return graphTime, graphSuggestions, hashTime, hashSuggestions
 
         #create visualizations
         #createPieChart(hash.mealNutrition(meal))
 
         # send charts, time, and food suggestions to back end 
-
 
 @api.route('/profile/', methods=['POST'])
 def my_profile():
@@ -139,27 +141,41 @@ def my_profile():
 
     main = Main()
     #hashTime, hashSuggestions
-    graphTime, graphSuggestions = main.mainImportVersion()
+    graphTime, graphSuggestions, hashTime, hashSuggestions = main.mainImportVersion()
+    vitaminsG = []
+    vitaminsH = []
+    foodsG = []
+    foodsH = []
+
+    for item in graphSuggestions:
+        vitaminsG.append(item)
+        foodsG.append(graphSuggestions[item])
+
+    for item in hashSuggestions:
+        vitaminsH.append(item)
+        foodsH.append(hashSuggestions[item])
+
+
     response_body = {
-        "suggestion1G": graphSuggestions[0],
-        "suggestion2G": graphSuggestions[1],
-        "suggestion3G": graphSuggestions[2],
-        "suggestion4G": graphSuggestions[3],
-        "suggestion5G": graphSuggestions[4],
+        "suggestion1G": foodsG[0],
+        "suggestion2G": foodsG[1],
+        "suggestion3G": foodsG[2],
+        "suggestion4G": foodsG[3],
+        "suggestion5G": foodsG[4],
         "graphTime": graphTime,
-    }
-    """
-    "suggestion1H": hashSuggestions[0],
-        "suggestion2H": hashSuggestions[1],
-        "suggestion3H": hashSuggestions[2],
-        "suggestion4H": hashSuggestions[3],
-        "suggestion5H": hashSuggestions[4],
+        "suggestion1H": foodsH[0],
+        "suggestion2H": foodsH[1],
+        "suggestion3H": foodsH[2],
+        "suggestion4H": foodsH[3],
+        "suggestion5H": foodsH[4],
         "hashTime": hashTime,
-    """
+    }
 
     return response_body
+
 
 if __name__ == "__main__":
     main = Main()
     main.pickleNewGraph()
+    main.pickleNewHash()
  
