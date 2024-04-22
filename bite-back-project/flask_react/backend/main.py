@@ -127,14 +127,14 @@ class Main:
         # Save the chart as an image
         fig.write_image('../src/images/overlapped_bar_chart.png')  # Change file format as needed (e.g., 'overlapped_bar_chart.jpg')
     
-    def mainImportVersion(self):
+    def mainImportVersion(self, input):
         # get input from website as args
         # TODO
 
         # load data
         self.unpickleGraph() 
         self.unpickleHash()
-        input = {"Cuban sandwich, with spread" : 1, "Milk, whole" : 2}   # example input for now format food : num servings
+        # input = {"Cuban sandwich, with spread" : 1, "Milk, whole" : 2}   # example input for now format food : num servings
 
         # each functions compares the time it took and the foods suggested by each data structure
         hashTime, hashSuggestions, goalNutrients = self.runHash(input)
@@ -174,7 +174,7 @@ def my_profile():
 
     main = Main()
     #hashTime, hashSuggestions
-    graphTime, graphSuggestions, hashTime, hashSuggestions = main.mainImportVersion()
+    graphTime, graphSuggestions, hashTime, hashSuggestions = main.mainImportVersion(input)
     vitaminsG = []
     vitaminsH = []
     foodsG = []
