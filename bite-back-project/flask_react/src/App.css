@@ -28,6 +28,11 @@
   color: green;
 }
 
+.App-header h2{
+  color: green;
+  font-size: 24px;
+}
+
 .App-header p {
   color: black;
 }

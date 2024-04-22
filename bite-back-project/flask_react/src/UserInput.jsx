@@ -205,18 +205,23 @@ function UserInput() {
       </form>
       {profileData && (
         <div>
-          <p>Suggestion1G: {profileData.suggestion1G}</p>
-          <p>Suggestion2G: {profileData.suggestion2G}</p>
-          <p>Suggestion3G: {profileData.suggestion3G}</p>
-          <p>Suggestion4G: {profileData.suggestion4G}</p>
-          <p>Suggestion5G: {profileData.suggestion5G}</p>
-          <p>graphTime: {profileData.graphTime}</p>
-          <p>Suggestion1H: {profileData.suggestion1H}</p>
-          <p>Suggestion2H: {profileData.suggestion2H}</p>
-          <p>Suggestion3H: {profileData.suggestion3H}</p>
-          <p>Suggestion4H: {profileData.suggestion4H}</p>
-          <p>Suggestion5H: {profileData.suggestion5H}</p>
-          <p>hashTime: {profileData.hashTime}</p>
+          <h2>Graph Suggestions</h2>
+          <p>Graph Suggestion 1: {profileData.suggestion1G}</p>
+          <p>Graph Suggestion 2: {profileData.suggestion2G}</p>
+          <p>Graph Suggestion 3: {profileData.suggestion3G}</p>
+          <p>Graph Suggestion 4: {profileData.suggestion4G}</p>
+          <p>Graph Suggestion 5: {profileData.suggestion5G}</p>
+          <br></br>
+          <h2>Hash Suggestions</h2>
+          <p>Hash Suggestion 1: {profileData.suggestion1H}</p>
+          <p>Hash Suggestion 2: {profileData.suggestion2H}</p>
+          <p>Hash Suggestion 3: {profileData.suggestion3H}</p>
+          <p>Hash Suggestion 4: {profileData.suggestion4H}</p>
+          <p>Hash Suggestion 5: {profileData.suggestion5H}</p>
+          <br></br>
+          <h2>RunTime Comparison</h2>
+          <p>Graph runtime: {profileData.graphTime} Seconds</p>
+          <p>Hash runtime: {profileData.hashTime} Seconds</p>
         </div>
       )}
     </div>
