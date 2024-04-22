@@ -41,16 +41,33 @@
   width: 100%;
 }
 
-#first {
+#container-green {
+  width: 100%;
+  background-color: green;
+}
+
+.first {
   width: 50%;
   float: left;
   height: 300px;
 }
 
-#second {
+.second {
   width: 50%;
   float: left;
   height: 300px;
+}
+
+.first img{
+  width: 95%;
+  height: auto;
+  overflow: hidden;
+}
+
+.second img{
+  width: 95%;
+  height: auto;
+  overflow: hidden;
 }
 
 .uiDesign p {
@@ -85,10 +102,12 @@ Button Design from: https://www.w3schools.com/css/tryit.asp?filename=trycss_butt
   justify-content: center;
   height: 100%;
   width: 100%;
+  margin-top: 5%;
 }
 
 .funFactImage img {
   width: 80%;
+  height: auto;
   float: left;
   padding-top: 10%;
 }

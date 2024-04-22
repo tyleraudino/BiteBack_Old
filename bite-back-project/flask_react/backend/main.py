@@ -61,7 +61,7 @@ class Main:
         # return 5 suggested foods - END HASH TIME
         endTime = time.time()
         runTime = endTime - startTime #calculate runTime of hash 
-        return runTime, foodSuggestions
+        return runTime, foodSuggestions, goalNutrients
 
     def runGraph(self, meal):
         # GRAPH - start time here
@@ -79,7 +79,7 @@ class Main:
         # return 5 suggested foods - END HASH TIME
         endTime = time.time()
         runTime = endTime - startTime 
-        return runTime, foodSuggestions
+        return runTime, foodSuggestions, mealNutrition
     
     def createPieChart(self, nutrients):
         # this function will take in meal nutrients as a dict and create a pie chart of meal balance of main macros (Protein, Carbs, Fats)
@@ -97,7 +97,7 @@ class Main:
         fig.update_layout(title_x=0.5)
         fig.update_layout(width=800, height=600)
         fig.update_layout(title_font=dict(size=24), legend_font=dict(size=16))
-        fig.write_image("../public/macro_pie_chart.png")
+        fig.write_image("../src/images/macro_pie_chart.png")
         return
     
     def createBarChart(self, nutrients, goalNutrients):
@@ -125,7 +125,7 @@ class Main:
         fig.update_layout(width=800, height=600)
 
         # Save the chart as an image
-        fig.write_image('../public/overlapped_bar_chart.jpg')  # Change file format as needed (e.g., 'overlapped_bar_chart.jpg')
+        fig.write_image('../src/images/overlapped_bar_chart.png')  # Change file format as needed (e.g., 'overlapped_bar_chart.jpg')
     
     def mainImportVersion(self):
         # get input from website as args
@@ -137,8 +137,8 @@ class Main:
         input = {"Cuban sandwich, with spread" : 1, "Milk, whole" : 2}   # example input for now format food : num servings
 
         # each functions compares the time it took and the foods suggested by each data structure
-        hashTime, hashSuggestions = self.runHash(input)
-        graphTime, graphSuggestions = self.runGraph(input)
+        hashTime, hashSuggestions, goalNutrients = self.runHash(input)
+        graphTime, graphSuggestions, mealNutrition = self.runGraph(input)
         print("Hash RunTime: " + str(hashTime))
         print("Hash Suggestions: ", end = "")
         print(hashSuggestions)
@@ -146,11 +146,15 @@ class Main:
         print("Graph Suggestions: ", end = "")
         print(graphSuggestions)
 
+        #create visualizations
+        self.createPieChart(mealNutrition)
+        self.createBarChart(mealNutrition, goalNutrients)
+
+
         #return hash runtime, graph runtime, graph suggestions, hash suggestions
         return graphTime, graphSuggestions, hashTime, hashSuggestions
 
-        #create visualizations
-        #createPieChart(hash.mealNutrition(meal))
+        
 
         # send charts, time, and food suggestions to back end 
 

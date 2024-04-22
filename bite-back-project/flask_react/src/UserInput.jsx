@@ -1,6 +1,8 @@
 import FormFood from "./FormFood";
 import { useState } from "react";
 import axios from "axios";
+import macroPieChart from "./images/macro_pie_chart.png"; // Import your image files
+import overlappedBarChart from "./images/overlapped_bar_chart.png";
 
 /*Axios setup inspired by this article
 How to use Axios POST requests
@@ -85,7 +87,7 @@ function UserInput() {
             <tr>
               <td>
                 <label>
-                  Food1 Name
+                  Food 1 Name
                   <input
                     type="text"
                     name="food1Name"
@@ -95,7 +97,7 @@ function UserInput() {
                 </label>
                 <p>Input Value: {uiData.food1Name}</p>
                 <label>
-                  Food1 Serving
+                  Food 1 Serving
                   <input
                     type="text"
                     name="food1Serving"
@@ -108,7 +110,7 @@ function UserInput() {
 
               <td>
                 <label>
-                  Food2 Name
+                  Food 2 Name
                   <input
                     type="text"
                     name="food2Name"
@@ -118,7 +120,7 @@ function UserInput() {
                 </label>
                 <p>Input Value: {uiData.food2Name}</p>
                 <label>
-                  Food2 Serving
+                  Food 2 Serving
                   <input
                     type="text"
                     name="food2Serving"
@@ -131,7 +133,7 @@ function UserInput() {
 
               <td>
                 <label>
-                  Food3 Name
+                  Food 3 Name
                   <input
                     type="text"
                     name="food3Name"
@@ -141,7 +143,7 @@ function UserInput() {
                 </label>
                 <p>Input Value: {uiData.food3Name}</p>
                 <label>
-                  Food3 Serving
+                  Food 3 Serving
                   <input
                     type="text"
                     name="food3Serving"
@@ -154,7 +156,7 @@ function UserInput() {
 
               <td>
                 <label>
-                  Food4 Name
+                  Food 4 Name
                   <input
                     type="text"
                     name="food4Name"
@@ -164,7 +166,7 @@ function UserInput() {
                 </label>
                 <p>Input Value: {uiData.food4Name}</p>
                 <label>
-                  Food4 Serving
+                  Food 4 Serving
                   <input
                     type="text"
                     name="food4Serving"
@@ -177,7 +179,7 @@ function UserInput() {
 
               <td>
                 <label>
-                  Food5 Name
+                  Food 5 Name
                   <input
                     type="text"
                     name="food5Name"
@@ -187,7 +189,7 @@ function UserInput() {
                 </label>
                 <p>Input Value: {uiData.food5Name}</p>
                 <label>
-                  Food5 Serving
+                  Food 5 Serving
                   <input
                     type="text"
                     name="food5Serving"
@@ -204,29 +206,39 @@ function UserInput() {
         <button type="submit">Submit</button>
       </form>
       {profileData && (
-        <div id="container">
-          <div id="first">
-          <h2>Graph Suggestions</h2>
-          <p>1: {profileData.suggestion1G}</p>
-          <p>2: {profileData.suggestion2G}</p>
-          <p>3: {profileData.suggestion3G}</p>
-          <p>4: {profileData.suggestion4G}</p>
-          <p>5: {profileData.suggestion5G}</p>
+        <><div id="container">
+          <div className="first">
+            <h2>Graph Suggestions</h2>
+            <p>1: {profileData.suggestion1G}</p>
+            <p>2: {profileData.suggestion2G}</p>
+            <p>3: {profileData.suggestion3G}</p>
+            <p>4: {profileData.suggestion4G}</p>
+            <p>5: {profileData.suggestion5G}</p>
           </div>
-          <div id="second">
-          <h2>Hash Suggestions</h2>
-          <p>1: {profileData.suggestion1H}</p>
-          <p>2: {profileData.suggestion2H}</p>
-          <p>3: {profileData.suggestion3H}</p>
-          <p>4: {profileData.suggestion4H}</p>
-          <p>5: {profileData.suggestion5H}</p>
+          <div className="second">
+            <h2>Hash Suggestions</h2>
+            <p>1: {profileData.suggestion1H}</p>
+            <p>2: {profileData.suggestion2H}</p>
+            <p>3: {profileData.suggestion3H}</p>
+            <p>4: {profileData.suggestion4H}</p>
+            <p>5: {profileData.suggestion5H}</p>
           </div>
           <div>
-          <h2>RunTime Comparison</h2>
-          <p>Graph runtime: {profileData.graphTime} Seconds</p>
-          <p>Hash runtime: {profileData.hashTime} Seconds</p>
+            <h2>RunTime Comparison</h2>
+            <p>Graph runtime: {profileData.graphTime} Seconds</p>
+            <p>Hash runtime: {profileData.hashTime} Seconds</p>
+            <br></br>
           </div>
         </div>
+        <div id="container-green" >
+        <div className="first">
+            <img src={macroPieChart} alt="Macro Pie Chart" />
+          </div>
+          <div className="second">
+            <img src={overlappedBarChart} alt="Overlapped Bar Chart" />
+          </div>
+        </div></>
+      
       )}
 
     </div>
